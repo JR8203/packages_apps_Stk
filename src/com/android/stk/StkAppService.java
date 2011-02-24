@@ -210,6 +210,7 @@ public class StkAppService extends Service implements Runnable {
         case OP_BROWSER_TERMINATION:
         case OP_LOCALE_CHANGED:
         case OP_ICC_STATUS_CHANGE:
+        case OP_IDLE_SCREEN:
             msg.obj = args;
             /* falls through */
         case OP_LAUNCH_APP:
