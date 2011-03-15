@@ -602,6 +602,7 @@ public class StkAppService extends Service implements Runnable {
         case SEND_USSD:
             waitForUsersResponse = false;
             launchEventMessage();
+            mCurrentCmd = mMainCmd;
             break;
         case LAUNCH_BROWSER:
             launchConfirmationDialog(mCurrentCmd.geTextMessage());
