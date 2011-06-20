@@ -1057,4 +1057,13 @@ public class StkAppService extends Service implements Runnable {
         }
         return false;
     }
+
+    private void handleAlphaNotify(Bundle args) {
+        String alphaString = args.getString(AppInterface.ALPHA_STRING);
+
+        CatLog.d(this, "Alpha string received from card: " + alphaString);
+        Toast toast = Toast.makeText(this, alphaString, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 0);
+        toast.show();
+    }
 }

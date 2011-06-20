@@ -51,6 +51,8 @@ public class StkCmdReceiver extends BroadcastReceiver {
             handleLocaleChange(context);
         } else if (action.equals(AppInterface.CAT_ICC_STATUS_CHANGE)) {
             handleIccStatusChange(context, intent);
+        } else if (action.equals(AppInterface.CAT_ALPHA_NOTIFY_ACTION)) {
+            handleAlphaNotify(context, intent);
         }
     }
 
@@ -104,6 +106,16 @@ public class StkCmdReceiver extends BroadcastReceiver {
         args.putInt("REFRESH_RESULT", intent
                 .getIntExtra("REFRESH_RESULT",
                 SimRefreshResponse.Result.SIM_FILE_UPDATE.ordinal()));
+        context.startService(new Intent(context, StkAppService.class)
+                .putExtras(args));
+    }
+
+    private void handleAlphaNotify(Context context, Intent intent) {
+        Bundle args = new Bundle();
+        String alphaString = intent.getStringExtra(AppInterface.ALPHA_STRING);
+
+        args.putInt(StkAppService.OPCODE, StkAppService.OP_ALPHA_NOTIFY);
+        args.putString(AppInterface.ALPHA_STRING, alphaString);
         context.startService(new Intent(context, StkAppService.class)
                 .putExtras(args));
     }
