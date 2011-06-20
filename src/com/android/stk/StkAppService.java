@@ -121,7 +121,6 @@ public class StkAppService extends Service implements Runnable {
     static final int OP_BROWSER_TERMINATION = 8;
     static final int OP_LOCALE_CHANGED = 9;
     static final int OP_ICC_STATUS_CHANGE = 10;
-    static final int OP_ALPHA_NOTIFY = 30;
 
     //Invalid SetupEvent
     static final int INVALID_SETUP_EVENT = 0xFF;
@@ -220,7 +219,6 @@ public class StkAppService extends Service implements Runnable {
         case OP_LOCALE_CHANGED:
         case OP_ICC_STATUS_CHANGE:
         case OP_IDLE_SCREEN:
-        case OP_ALPHA_NOTIFY:
             msg.obj = args;
             /* falls through */
         case OP_LAUNCH_APP:
@@ -366,14 +364,9 @@ public class StkAppService extends Service implements Runnable {
                 CatLog.d(this, "Icc Status change received");
                 handleIccStatusChange((Bundle) msg.obj);
                 break;
-
             case MSG_ID_STOP_TONE:
                 CatLog.d(this, "Received MSG_ID_STOP_TONE");
                 handleStopTone();
-                break;
-
-            case OP_ALPHA_NOTIFY:
-                handleAlphaNotify((Bundle) msg.obj);
                 break;
             }
         }
@@ -1108,14 +1101,5 @@ public class StkAppService extends Service implements Runnable {
             return true;
         }
         return false;
-    }
-
-    private void handleAlphaNotify(Bundle args) {
-        String alphaString = args.getString(AppInterface.ALPHA_STRING);
-
-        CatLog.d(this, "Alpha string received from card: " + alphaString);
-        Toast toast = Toast.makeText(this, alphaString, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP, 0, 0);
-        toast.show();
     }
 }
