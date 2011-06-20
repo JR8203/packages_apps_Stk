@@ -607,6 +607,7 @@ public class StkAppService extends Service implements Runnable {
         case SEND_SMS:
         case SEND_SS:
         case SEND_USSD:
+            mCurrentCmd = mMainCmd;
             waitForUsersResponse = false;
             launchEventMessage();
             mCurrentCmd = mMainCmd;
